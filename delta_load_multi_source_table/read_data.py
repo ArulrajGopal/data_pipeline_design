@@ -10,4 +10,4 @@ url = f"https://{storage_account}.blob.core.windows.net/{container}/sample_data.
 # Read CSV directly
 df = pd.read_csv(url)
 
-print(df.head())
+print(df)
