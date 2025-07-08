@@ -23,11 +23,9 @@ def run_sql_script(sql_path):
     try:
         with conn:
             with conn.cursor() as cur:
-                # Read the SQL file content
                 with open(sql_path, "r") as sql_file:
                     sql_script = sql_file.read()
 
-                # Execute the SQL file content
                 cur.execute(sql_script)
                 print("SQL file executed successfully.")
 
@@ -44,7 +42,6 @@ def load_to_sql(df, table_name):
 
 
 def run_stored_proc(stored_procedure_name):
-    # Connect to the database
     conn = psycopg2.connect(
         host=db_host,
         database=db_name,
@@ -55,7 +52,6 @@ def run_stored_proc(stored_procedure_name):
     try:
         with conn:
             with conn.cursor() as cur:
-                # Call the stored procedure
                 cur.execute(f"CALL {stored_procedure_name}()")
                 print(f"{stored_procedure_name} executed successfully.")
                 
