@@ -1,10 +1,8 @@
-drop table order_details;
-drop table order_items;
-drop table orders;
-drop table order_items_stage;
-drop table orders_stage;
-
-
+-- drop table order_details;
+-- drop table order_items;
+-- drop table orders;
+-- drop table order_items_stage;
+-- drop table orders_stage;
 
 
 CREATE TABLE IF NOT EXISTS orders_stage (
