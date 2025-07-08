@@ -33,6 +33,10 @@ utils.load_to_sql(orders_df,"orders_stage")
 
 
 utils.run_stored_proc("load_orders")
+utils.run_stored_proc("load_order_items")
+
+
+
 
 
 

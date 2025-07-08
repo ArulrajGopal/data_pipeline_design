@@ -1,8 +1,8 @@
--- drop table order_details;
--- drop table order_items;
--- drop table orders;
--- drop table order_items_stage;
--- drop table orders_stage;
+drop table order_details;
+drop table order_items;
+drop table orders;
+drop table order_items_stage;
+drop table orders_stage;
 
 
 CREATE TABLE IF NOT EXISTS orders_stage (
@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS orders_stage (
 );
 
 CREATE TABLE IF NOT EXISTS order_items_stage (
+    order_item_id INT NOT NULL,
     order_id INT NOT NULL,             
     product_id INT NOT NULL,   
     unit_price DECIMAL(10, 2) NOT NULL,      
@@ -68,3 +69,26 @@ BEGIN
     RAISE NOTICE 'orders table loaded successfully.';
 END;
 $$;
+
+
+CREATE OR REPLACE PROCEDURE load_order_items()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM order_items;
+
+
+    INSERT INTO order_items (order_item_id, order_id, product_id, unit_price, qty)
+    SELECT 
+    A.order_item_id,
+    A.order_id,
+    A.product_id,
+    A.unit_price,
+    A.qty
+    FROM order_items_stage A;
+
+
+    RAISE NOTICE 'order_items table loaded successfully.';
+END;
+$$;
+
