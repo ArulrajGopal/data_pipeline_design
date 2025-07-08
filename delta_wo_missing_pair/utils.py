@@ -1,16 +1,23 @@
 import psycopg2
 import os 
+from sqlalchemy import create_engine
 
+# PostgreSQL connection details
+db_user = 'postgres'
+db_password = 'Arulraj@1234'
+db_host = 'localhost'       
+db_port = '5432'
+db_name = 'postgres'
 
 
 def run_sql_script(sql_path):
 
     # Connect to the database
     conn = psycopg2.connect(
-        host="localhost",
-        database="postgres",
-        user="postgres",
-        password="Arulraj@1234"
+        host=db_host,
+        database=db_name,
+        user=db_user,
+        password=db_password
     )
 
     try:
@@ -26,3 +33,18 @@ def run_sql_script(sql_path):
 
     finally:
         conn.close()
+
+
+def load_to_sql(df, table_name):
+    engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
+    df.to_sql(table_name, engine, if_exists='replace', index=False)
+
+    print("Data loaded successfully.")
+
+
+
+
+
+
+
