@@ -17,17 +17,15 @@ container = "kaniniwitharul"
 
 
 #reading the data from blob storage
-# orders_url = f"https://{storage_account}.blob.core.windows.net/{container}/delta_wo_missing_pair/{batch_no}/orders.csv"
+orders_url = f"https://{storage_account}.blob.core.windows.net/{container}/delta_wo_missing_pair/{batch_no}/orders.csv"
 order_items_url = f"https://{storage_account}.blob.core.windows.net/{container}/delta_wo_missing_pair/{batch_no}/order_items.csv"
 
-# orders_df = pd.read_csv(orders_url)
+orders_df = pd.read_csv(orders_url)
 order_items_df = pd.read_csv(order_items_url)
 
-
-print(order_items_df)
-
-
+#loading into sql stage tables
 utils.load_to_sql(order_items_df,"order_items_stage")
+utils.load_to_sql(orders_df,"orders_stage")
 
 
 
