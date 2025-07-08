@@ -23,6 +23,9 @@ order_items_url = f"https://{storage_account}.blob.core.windows.net/{container}/
 orders_df = pd.read_csv(orders_url)
 order_items_df = pd.read_csv(order_items_url)
 
+orders_df['order_date'] = pd.to_datetime(orders_df['order_date'], format='%m/%d/%Y').dt.date
+
+
 #loading into sql stage tables
 utils.load_to_sql(order_items_df,"order_items_stage")
 utils.load_to_sql(orders_df,"orders_stage")

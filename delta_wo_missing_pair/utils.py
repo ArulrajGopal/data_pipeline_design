@@ -40,7 +40,7 @@ def load_to_sql(df, table_name):
 
     df.to_sql(table_name, engine, if_exists='replace', index=False)
 
-    print("Data loaded successfully.")
+    print(f"data loaded in {table_name} successfully.")
 
 
 def run_stored_proc(stored_procedure_name):
