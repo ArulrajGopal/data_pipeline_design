@@ -1,10 +1,19 @@
+drop table order_details;
+drop table order_items;
+drop table orders;
+drop table order_items_stage;
+drop table orders_stage;
+
+
+
+
 CREATE TABLE IF NOT EXISTS orders_stage (
     order_id INTEGER PRIMARY KEY,      
     customer_id INT NOT NULL,        
     order_date DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS orders_items_stage (
+CREATE TABLE IF NOT EXISTS order_items_stage (
     order_id INT NOT NULL,             
     product_id INT NOT NULL,   
     unit_price DECIMAL(10, 2) NOT NULL,      
