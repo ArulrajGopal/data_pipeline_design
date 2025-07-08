@@ -5,6 +5,7 @@ import pandas as pd
 
 BASE_DIR = os.path.dirname(__file__)
 
+#run sql script for creating tables
 sql_path = f"{BASE_DIR}/createStatement.sql"
 
 utils.run_sql_script(sql_path)
@@ -14,11 +15,11 @@ storage_account = "arulrajgopalshare"
 container = "kaniniwitharul"
 
 
+
+#reading the data from blob storage
 orders_url = f"https://{storage_account}.blob.core.windows.net/{container}/delta_wo_missing_pair/{batch_no}/orders.csv"
 order_items_url = f"https://{storage_account}.blob.core.windows.net/{container}/delta_wo_missing_pair/{batch_no}/order_items.csv"
 
-
-# Read CSV directly
 orders_df = pd.read_csv(orders_url)
 order_itmes_df = pd.read_csv(order_items_url)
 
