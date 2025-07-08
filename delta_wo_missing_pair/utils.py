@@ -43,6 +43,25 @@ def load_to_sql(df, table_name):
     print("Data loaded successfully.")
 
 
+def run_stored_proc(stored_procedure_name):
+    # Connect to the database
+    conn = psycopg2.connect(
+        host=db_host,
+        database=db_name,
+        user=db_user,
+        password=db_password
+    )
+
+    try:
+        with conn:
+            with conn.cursor() as cur:
+                # Call the stored procedure
+                cur.execute(f"CALL {stored_procedure_name}()")
+                print(f"{stored_procedure_name} executed successfully.")
+                
+    finally:
+        conn.close()
+
 
 
 

@@ -48,3 +48,23 @@ CREATE TABLE IF NOT EXISTS order_details (
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (order_item_id) REFERENCES order_items(order_item_id) ON DELETE CASCADE
 );
+
+
+CREATE OR REPLACE PROCEDURE load_orders()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM orders;
+
+
+    INSERT INTO orders (order_id, customer_id, order_date)
+    SELECT 
+    A.order_id,
+    A.customer_id,
+    A.order_date
+    FROM orders_stage A;
+
+
+    RAISE NOTICE 'orders table loaded successfully.';
+END;
+$$;
