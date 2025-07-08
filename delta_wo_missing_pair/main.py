@@ -2,6 +2,8 @@ import psycopg2
 import os 
 import utils
 import pandas as pd
+import sys
+
 
 BASE_DIR = os.path.dirname(__file__)
 
@@ -10,7 +12,8 @@ sql_path = f"{BASE_DIR}/createStatement.sql"
 
 utils.run_sql_script(sql_path)
 
-batch_no = 2
+
+batch_no = sys.argv[1]
 storage_account = "arulrajgopalshare"
 container = "kaniniwitharul"
 
@@ -35,7 +38,7 @@ utils.load_to_sql(orders_df,"orders_stage")
 #executing stored procedures
 utils.run_stored_proc("load_orders")
 utils.run_stored_proc("load_order_items")
-
+utils.run_stored_proc("load_order_details")
 
 
 
