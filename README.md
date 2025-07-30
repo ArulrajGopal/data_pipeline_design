@@ -10,3 +10,5 @@ sudo apt-get upgrade
 sudo apt install python3-pip
 
 sudo apt install python3-<package-name>
+
+sudo apt install python3-package1 python3-package2 python3-package3
