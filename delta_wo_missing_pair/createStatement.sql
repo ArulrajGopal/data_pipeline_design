@@ -6,7 +6,7 @@
 
 
 CREATE TABLE IF NOT EXISTS orders_stage (
-    order_id INTEGER PRIMARY KEY,      
+    order_id INT NOT NULL,    
     customer_id INT NOT NULL,        
     order_date DATE NOT NULL
 );
