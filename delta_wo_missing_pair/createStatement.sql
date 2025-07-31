@@ -98,27 +98,27 @@ $$;
 
 
 
-CREATE OR REPLACE PROCEDURE load_order_details()
-LANGUAGE plpgsql
-AS $$
-BEGIN
+-- CREATE OR REPLACE PROCEDURE load_order_details()
+-- LANGUAGE plpgsql
+-- AS $$
+-- BEGIN
 
-    TRUNCATE TABLE order_details;
+--     TRUNCATE TABLE order_details;
 
-    INSERT INTO order_details (order_id, customer_id, order_date, order_item_id, product_id,unit_price,qty)
-    SELECT 
-        A.order_id,
-        A.customer_id,
-        A.order_date,
-        B.order_item_id,
-        B.product_id,
-        B.unit_price,
-        B.qty
-    FROM orders A 
-    join order_items B
-    on A.order_id = B.order_id;
+--     INSERT INTO order_details (order_id, customer_id, order_date, order_item_id, product_id,unit_price,qty)
+--     SELECT 
+--         A.order_id,
+--         A.customer_id,
+--         A.order_date,
+--         B.order_item_id,
+--         B.product_id,
+--         B.unit_price,
+--         B.qty
+--     FROM orders A 
+--     join order_items B
+--     on A.order_id = B.order_id;
 
 
-    RAISE NOTICE 'order_details table loaded successfully.';
-END;
-$$;
+--     RAISE NOTICE 'order_details table loaded successfully.';
+-- END;
+-- $$;
