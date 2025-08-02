@@ -1,8 +1,6 @@
-# data_pipeline_design
+# Orphan Recors Handling
 
-
-
-## Steps
+##  Steps
 
 1.Make sure python & postgresSQL is available in the environment.
 
