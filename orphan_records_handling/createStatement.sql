@@ -108,7 +108,7 @@ AS $$
             JOIN order_items B ON A.order_id = B.order_id
         ),
         order_items_join_orders AS (
-            SELECT  A.order_id, A.order_item_id, A.product_id, B.customer_id, B.order_date, A.unit_price, A.qty
+            SELECT  A.order_id, A.order_item_id, A.product_id, C.customer_id, C.order_date, A.unit_price, A.qty
             FROM order_items_stage A 
             LEFT JOIN orders_stage B ON A.order_id = B.order_id
             JOIN orders C ON A.order_id = C.order_id
