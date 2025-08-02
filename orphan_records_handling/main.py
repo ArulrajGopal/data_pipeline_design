@@ -27,7 +27,7 @@ orders_df = pd.read_csv(orders_url)
 order_items_df = pd.read_csv(order_items_url)
 
 
-orders_df['order_date'] = pd.to_datetime(orders_df['order_date'], format='%m/%d/%Y').dt.date
+orders_df['order_date'] = pd.to_datetime(orders_df['order_date'], format='%Y-%m-%d').dt.date
 
 
 #loading into sql stage tables
@@ -38,7 +38,7 @@ utils.load_to_sql(orders_df,"orders_stage")
 #executing stored procedures
 utils.run_stored_proc("load_orders")
 utils.run_stored_proc("load_order_items")
-# # utils.run_stored_proc("load_order_details")
+utils.run_stored_proc("load_order_details")
 
 
 

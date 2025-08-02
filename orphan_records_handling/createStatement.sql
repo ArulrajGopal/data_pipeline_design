@@ -98,50 +98,39 @@ $$;
 
 
 
--- CREATE OR REPLACE PROCEDURE load_order_details()
--- LANGUAGE plpgsql
--- AS $$
--- BEGIN
+CREATE OR REPLACE PROCEDURE load_order_details()
+LANGUAGE plpgsql
+AS $$
+    BEGIN
+        INSERT INTO order_details (order_item_id, order_id, product_id, customer_id, order_date, unit_price, qty)
+        WITH 
+        order_join_order_items AS (
+            SELECT B.order_item_id, B.order_id, B.product_id, A.customer_id, A.order_date, B.unit_price, B.qty 
+            FROM orders_stage A 
+            JOIN order_items B ON A.order_id = B.order_id
+        ),
+        order_items_join_orders AS (
+            SELECT A.order_item_id, A.order_id, A.product_id, B.customer_id, B.order_date, A.unit_price, A.qty
+            FROM order_items_stage A 
+            LEFT JOIN orders_stage B ON A.order_id = B.order_id
+            JOIN orders C ON A.order_id = C.order_id
+            WHERE B.order_id IS NULL
+        )
+        SELECT * FROM order_join_order_items
+        UNION ALL
+        SELECT * FROM order_items_join_orders
+        ON CONFLICT (order_item_id, order_id) DO UPDATE
+        SET	
+            order_date   = EXCLUDED.order_date,
+            product_id   = EXCLUDED.product_id,
+            customer_id  = EXCLUDED.customer_id,
+            unit_price   = EXCLUDED.unit_price,
+            qty          = EXCLUDED.qty,
+            updated_at   = NOW();
+    RAISE NOTICE 'order_details table loaded successfully.';
+END;
+$$;
 
---     TRUNCATE TABLE order_details;
 
---     INSERT INTO order_details (order_id, customer_id, order_date, order_item_id, product_id,unit_price,qty)
---     SELECT 
---         A.order_id,
---         A.customer_id,
---         A.order_date,
---         B.order_item_id,
---         B.product_id,
---         B.unit_price,
---         B.qty
---     FROM orders A 
---     join order_items B
---     on A.order_id = B.order_id;
-
-
---     RAISE NOTICE 'order_details table loaded successfully.';
--- END;
--- $$;
-
--- with 
--- order_with_order_items as (
--- select B.order_id, B.order_item_id, A.order_date,  B.product_id, A.customer_id, B.unit_price, B.qty 
--- from orders_stage A 
--- join order_items B 
--- on A.order_id = B.order_id
--- ),
-
--- orders_items_filtered as (
--- select A.*
--- from order_items_stage A 
--- left join orders_stage B
--- on A.order_id = B.order_id
--- where B.order_id is null
--- )
-
--- select B.order_id, B.customer_id, B.order_date, A.order_item_id,  A.product_id,  A.unit_price, A.qty 
--- from orders_items_filtered A 
--- join orders B
--- on A.order_id = B.order_id;
 
 
