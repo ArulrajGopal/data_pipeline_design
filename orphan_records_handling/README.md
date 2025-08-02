@@ -14,6 +14,8 @@
 
 3.Sample data avaliable to public. Directly use the url in given code to get the data.
 
-4.Sample 
+4.Sample data organized in a batch format. Each batch is each folder.
+
+5.Execute main.py with system argument which is batch number. Below is example code to run 1st batch.
 
     python3 main.py 1
