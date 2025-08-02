@@ -1,13 +1,7 @@
 import psycopg2
 import os 
 from sqlalchemy import create_engine
-
-# PostgreSQL connection details
-db_user = 'postgres'
-db_password = 'Arulraj_1234'
-db_host = 'localhost'       
-db_port = '5432'
-db_name = 'postgres'
+from config import *
 
 
 def run_sql_script(sql_path):
