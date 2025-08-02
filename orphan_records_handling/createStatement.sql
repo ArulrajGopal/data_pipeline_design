@@ -123,25 +123,25 @@ $$;
 -- END;
 -- $$;
 
-with 
-order_with_order_items as (
-select B.order_id, B.order_item_id, A.order_date,  B.product_id, A.customer_id, B.unit_price, B.qty 
-from orders_stage A 
-join order_items B 
-on A.order_id = B.order_id
-),
+-- with 
+-- order_with_order_items as (
+-- select B.order_id, B.order_item_id, A.order_date,  B.product_id, A.customer_id, B.unit_price, B.qty 
+-- from orders_stage A 
+-- join order_items B 
+-- on A.order_id = B.order_id
+-- ),
 
-orders_items_filtered as (
-select A.*
-from order_items_stage A 
-left join orders_stage B
-on A.order_id = B.order_id
-where B.order_id is null
-)
+-- orders_items_filtered as (
+-- select A.*
+-- from order_items_stage A 
+-- left join orders_stage B
+-- on A.order_id = B.order_id
+-- where B.order_id is null
+-- )
 
-select B.order_id, B.customer_id, B.order_date, A.order_item_id,  A.product_id,  A.unit_price, A.qty 
-from orders_items_filtered A 
-join orders B
-on A.order_id = B.order_id;
+-- select B.order_id, B.customer_id, B.order_date, A.order_item_id,  A.product_id,  A.unit_price, A.qty 
+-- from orders_items_filtered A 
+-- join orders B
+-- on A.order_id = B.order_id;
 
 
