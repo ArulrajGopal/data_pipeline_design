@@ -1,8 +1,8 @@
-drop table order_details;
-drop table order_items;
-drop table orders;
-drop table order_items_stage;
-drop table orders_stage;
+-- drop table order_details;
+-- drop table order_items;
+-- drop table orders;
+-- drop table order_items_stage;
+-- drop table orders_stage;
 
 
 CREATE TABLE IF NOT EXISTS orders_stage (
@@ -94,16 +94,6 @@ BEGIN
     RAISE NOTICE 'order_items table loaded successfully.';
 END;
 $$;
-
-
-    -- order_id INT NOT NULL, 
-    -- order_item_id INT NOT NULL,           
-    -- product_id INT NOT NULL, 
-    -- customer_id INT NOT NULL,        
-    -- order_date DATE NOT NULL,  
-    -- unit_price DECIMAL(10, 2) NOT NULL,      
-    -- qty INT NOT NULL,   
-
 
 
 CREATE OR REPLACE PROCEDURE load_order_details()
